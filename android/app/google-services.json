@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "107326129579",
+    "project_id": "mynotes-priyanshu",
+    "storage_bucket": "mynotes-priyanshu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107326129579:android:d691945af49be13bb4beee",
+        "android_client_info": {
+          "package_name": "com.example.learning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107326129579-nng09aoeaiqriukfmdvccv8629trs6ne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEmBkgh-aMxdcEM1UJTWMUxMgDGy1tm-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107326129579-nng09aoeaiqriukfmdvccv8629trs6ne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

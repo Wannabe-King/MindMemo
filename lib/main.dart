@@ -17,47 +17,49 @@ void main() {
     ),
     home: const HomePage(),
     routes: {
-      "/login/" :(context) => const LoginView(),
-      "/register/" :(context) =>  const RegisterView()
+      "/login/": (context) => const LoginView(),
+      "/register/": (context) => const RegisterView(),
+      "/notes/": (context) => const NotesView()
     },
   ));
 }
 
+//use stl shorthand
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
-              if(user!=null){
-                if(user.emailVerified){
-                  return const NotesView();
-                }
-                else{
-                  return const VerfiyEmailView();
-                }
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final user = FirebaseAuth.instance.currentUser;
+            if (user != null) {
+              if (user.emailVerified) {
+                return const NotesView();
+              } else {
+                return const VerfiyEmailView();
               }
-              else{
-                return const LoginView();
-              }
-            default :
-              return const CircularProgressIndicator();
-          }
-        },
-      );
+            } else {
+              return const LoginView();
+            }
+          default:
+            return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
 
+//NOTES : enum is a special "class" that represents a group of constants (unchangeable variables, like final variables)
 
-enum MenuAction {logout,settings}
+enum MenuAction { logout, settings }
 
+//use stf shorthand
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
 
@@ -76,26 +78,28 @@ class _NotesViewState extends State<NotesView> {
             onSelected: (value) async {
               switch (value) {
                 case MenuAction.logout:
-                  final shouldLogout= await showLogOutDialog(context);
+                  final shouldLogout = await showLogOutDialog(context);
                   devtools.log(shouldLogout.toString());
-                  if(shouldLogout){
+                  if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/login/', (_) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/login/', (_) => false);
                   }
                   break;
                 case MenuAction.settings:
                   devtools.log(MenuAction.settings.toString());
                   break;
               }
-            },itemBuilder: (context) {
+            },
+            itemBuilder: (context) {
               return const [
                 PopupMenuItem<MenuAction>(
-                value: MenuAction.logout,
-                child: Text('Logout'),
+                  value: MenuAction.logout,
+                  child: Text('Logout'),
                 ),
                 PopupMenuItem<MenuAction>(
-                value: MenuAction.settings,
-                child: Text('Settings'),
+                  value: MenuAction.settings,
+                  child: Text('Settings'),
                 ),
               ];
             },
@@ -106,27 +110,25 @@ class _NotesViewState extends State<NotesView> {
   }
 }
 
-Future<bool> showLogOutDialog(BuildContext context){
+Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
-    context: context,
-    builder: (context){
-      return AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to logout?'),
-        actions: [
-          TextButton(
-            onPressed: (){
-              Navigator.of(context).pop(false);
-            },
-            child: const Text('Cancle')
-            ),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Sign Out'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
             TextButton(
-            onPressed: (){
-              Navigator.of(context).pop(true);
-            },
-            child: const Text('Logout')
-            )
-        ],
-      );
-    }).then((value) => value ?? false);
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text('Cancle')),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Logout'))
+          ],
+        );
+      }).then((value) => value ?? false);
 }

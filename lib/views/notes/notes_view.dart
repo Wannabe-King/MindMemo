@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning/services/auth/auth_service.dart';
-import '../constants/routes.dart';
-import '../enum/menu_action.dart';
-import '../services/crud/notes_service.dart';
+import '../../constants/routes.dart';
+import '../../enum/menu_action.dart';
+import '../../services/crud/notes_service.dart';
 
 //use stf shorthand
 class NotesView extends StatefulWidget {
@@ -34,7 +34,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyNotes'),
+        title: const Text('My Notes'),
         actions: [
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
@@ -82,7 +82,7 @@ class _NotesViewState extends State<NotesView> {
                     }
                     
                   },
-                )
+                );
             default:
               return const CircularProgressIndicator();
           }
@@ -100,6 +100,12 @@ Future<bool> showLogOutDialog(BuildContext context) {
           title: const Text('Sign Out'),
           content: const Text('Are you sure you want to logout?'),
           actions: [
+            IconButton(
+                  onPressed:() {
+                  Navigator.of(context).pushNamed(newNoteRoute);
+                }, 
+                icon: const Icon(Icons.add),
+                ),
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(false);

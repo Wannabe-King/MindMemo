@@ -10,13 +10,13 @@ import 'package:path/path.dart' show join;
 class NotesService {
   Database? _db;
 
-  List<DatabaseNote> _notes=[];
+  List<DatabaseNote> _notes = [];
 
   //Making NoteService Singleton(only one instance is available and is used everywhere we cannot create multiple instaces of singleton)
-  static final NotesService _shared= NotesService._sharedInstance();
-  NotesService._sharedInstance(){
-    _notesStreamController=StreamController<List<DatabaseNote>>.broadcast(
-      onListen: (){
+  static final NotesService _shared = NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: () {
         _notesStreamController.sink.add(_notes);
       },
     );
@@ -28,24 +28,23 @@ class NotesService {
 
   Stream<List<DatabaseNote>> get allNote => _notesStreamController.stream;
 
-  Future<DatabaseUser> getOrCreateUser({required String email}) async{
-    try{
-        final user=await getUser(email: email);
-        return user;
-    }on CouldNotFindUser catch{
-        final createdUser=await createUser(email: email);
-        return createdUser;
-    }catch (e){
+  Future<DatabaseUser> getOrCreateUser({required String email}) async {
+    try {
+      final user = await getUser(email: email);
+      return user;
+    } on CouldNotFindUser {
+      final createdUser = await createUser(email: email);
+      return createdUser;
+    } catch (e) {
       rethrow;
     }
   }
 
   Future<void> _cacheNotes() async {
-    final allNotes=await getAllNotes();
-    _notes=allNotes.toList();
+    final allNotes = await getAllNotes();
+    _notes = allNotes.toList();
     _notesStreamController.add(_notes);
   }
-
 
   Database _getDatabaseOrThrow() {
     final db = _db;
@@ -90,9 +89,8 @@ class NotesService {
 
     if (deleteCount == 0) {
       throw CouldNotDeleteNote();
-    }
-    else{
-      _notes.removeWhere((note) => note.id==id);
+    } else {
+      _notes.removeWhere((note) => note.id == id);
       _notesStreamController.add(_notes);
     }
   }
@@ -100,8 +98,8 @@ class NotesService {
   Future<int> deleteAllNotes() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final numberOfDeletions= await db.delete(noteTable);
-    _notes=[];
+    final numberOfDeletions = await db.delete(noteTable);
+    _notes = [];
     _notesStreamController.add(_notes);
     return numberOfDeletions;
   }
@@ -109,51 +107,49 @@ class NotesService {
   Future<DatabaseNote> getNote({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final notes =await db.query(
+    final notes = await db.query(
       noteTable,
       where: 'id=?',
       whereArgs: [id],
     );
-    
-    if(notes.isEmpty){
+
+    if (notes.isEmpty) {
       throw CouldNotFindNote();
-    }
-    else{
-      final note= DatabaseNote.fromRow(notes.first);
-      _notes.removeWhere((note)=>note.id==id);
+    } else {
+      final note = DatabaseNote.fromRow(notes.first);
+      _notes.removeWhere((note) => note.id == id);
       _notesStreamController.add(_notes);
       _notes.add(note);
       return note;
     }
   }
 
-
   Future<Iterable<DatabaseNote>> getAllNotes() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final notes =await db.query(noteTable);
+    final notes = await db.query(noteTable);
 
-    final result=notes.map((notesRow) => DatabaseNote.fromRow(notesRow));
+    final result = notes.map((notesRow) => DatabaseNote.fromRow(notesRow));
 
     return result;
   }
 
-  Future<DatabaseNote> updateNote({required DatabaseNote note,required String text}) async {
+  Future<DatabaseNote> updateNote(
+      {required DatabaseNote note, required String text}) async {
     await _ensureDbIsOpen();
-    final db=_getDatabaseOrThrow();
+    final db = _getDatabaseOrThrow();
 
     await getNote(id: note.id);
 
-    final updatedCount=await db.update(noteTable, {
-      noteColumn:text,
+    final updatedCount = await db.update(noteTable, {
+      noteColumn: text,
     });
 
-    if(updatedCount==0){
+    if (updatedCount == 0) {
       throw CouldNotUpdateNote();
-    }
-    else{
-      final updatedNote= await getNote(id: note.id);
-      _notes.removeWhere((note) => note.id== updatedNote.id);
+    } else {
+      final updatedNote = await getNote(id: note.id);
+      _notes.removeWhere((note) => note.id == updatedNote.id);
       _notes.add(updatedNote);
       _notesStreamController.add(_notes);
       return updatedNote;
@@ -223,10 +219,9 @@ class NotesService {
   }
 
   Future<void> _ensureDbIsOpen() async {
-    try{
+    try {
       await open();
-    }
-    on DatabaseAlreadyOpenException{
+    } on DatabaseAlreadyOpenException {
       //empty
     }
   }
@@ -238,7 +233,7 @@ class NotesService {
     try {
       final docsPath = await getApplicationDocumentsDirectory();
       final dbPath = join(docsPath.path, dbName);
-      final db = await openDatabase(dbPath);
+      final db = await openDatabase(dbPath, version: 1);
       _db = db;
 
       //create userTable
@@ -311,16 +306,14 @@ const emailColumn = 'email';
 const userIdColumn = 'user_id';
 const noteColumn = 'note';
 const createUserTable = '''CREATE TABLE IF NOT EXISTS "user" (
-                                "email"	TEXT NOT NULL UNIQUE,
                                 "id"	INTEGER NOT NULL,
-                                PRIMARY KEY("id" AUTOINCREMENT),
-                                );
-      ''';
-const createNoteTable = '''CREATE TABLE "notes" (
+                                "email"	TEXT NOT NULL UNIQUE,
+                                PRIMARY KEY("id" AUTOINCREMENT)
+                                );''';
+const createNoteTable = '''CREATE TABLE IF NOT EXISTS "note" (
                         "id"	INTEGER NOT NULL,
                         "user_id"	INTEGER NOT NULL,
                         "note"	TEXT,
                         PRIMARY KEY("id" AUTOINCREMENT),
                         FOREIGN KEY("user_id") REFERENCES "user"("id")
-                      ); 
-      ''';
+                      ); ''';

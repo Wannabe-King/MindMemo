@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:learning/services/auth/auth_service.dart';
 import 'package:learning/services/cloud/cloud_note.dart';
 import 'package:learning/services/cloud/firebase_cloud_storage.dart';
-import 'package:learning/services/crud/notes_service.dart';
 import 'package:learning/utilities/generics/get_arguments.dart';
 import 'package:share_plus/share_plus.dart';
 

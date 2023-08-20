@@ -5,7 +5,6 @@ import 'package:learning/services/cloud/firebase_cloud_storage.dart';
 import 'package:learning/views/notes/notes_list_view.dart';
 import '../../constants/routes.dart';
 import '../../enum/menu_action.dart';
-import '../../services/crud/notes_service.dart';
 import '../../utilities/dialogs/logout_dialog.dart';
 
 //use stf shorthand

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learning/constants/routes.dart';
-// import 'package:learning/services/auth/auth_service.dart';
 import 'package:learning/services/auth/bloc/auth_bloc.dart';
 import 'package:learning/services/auth/bloc/auth_event.dart';
 import 'package:learning/services/auth/bloc/auth_state.dart';
@@ -10,7 +9,6 @@ import 'package:learning/views/login_view.dart';
 import 'package:learning/views/notes/create_update_notes_view.dart';
 import 'package:learning/views/notes/notes_view.dart';
 import 'package:learning/views/register_view.dart';
-import 'package:learning/views/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +23,6 @@ void main() {
       child: const HomePage(),
     ),
     routes: {
-      loginRoute: (context) => const LoginView(),
-      registerRoute: (context) => const RegisterView(),
-      notesRoute: (context) => const NotesView(),
-      verifyEmailRoute: (context) => const VerfiyEmailView(),
       createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
     },
   ));
@@ -46,7 +40,11 @@ class HomePage extends StatelessWidget {
         return const NotesView();
       }else if(state is AuthStateLoggedOut){
         return const LoginView();
-      }else{
+      }
+      else if(state is AuthStateRegistering){
+        return const RegisterView();
+      }
+      else{
         return const Scaffold(
           body: CircularProgressIndicator(),
         );

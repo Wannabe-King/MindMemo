@@ -6,6 +6,7 @@ import 'package:learning/services/auth/bloc/auth_bloc.dart';
 import 'package:learning/services/auth/bloc/auth_event.dart';
 import 'package:learning/services/auth/bloc/auth_state.dart';
 import 'package:learning/services/auth/firebase_auth_provider.dart';
+import 'package:learning/views/forgot_password_view.dart';
 import 'package:learning/views/login_view.dart';
 import 'package:learning/views/notes/create_update_notes_view.dart';
 import 'package:learning/views/notes/notes_view.dart';
@@ -51,11 +52,17 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
           return const NotesView();
-        } else if (state is AuthStateLoggedOut) {
+        } 
+        else if (state is AuthStateLoggedOut) {
           return const LoginView();
-        } else if (state is AuthStateRegistering) {
+        } 
+        else if(state is AuthStateForgotPassword){
+          return const ForgotPasswordView();
+        } 
+        else if (state is AuthStateRegistering) {
           return const RegisterView();
-        } else {
+        } 
+        else {
           return const Scaffold(
             body: CircularProgressIndicator(),
           );

@@ -52,52 +52,62 @@ class _LoginViewState extends State<LoginView> {
         appBar: AppBar(
           title: const Text("Login"),
         ),
-        body: FutureBuilder(
-          future: AuthService.firebase().initialize(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                return Column(
-                  children: [
-                    TextField(
-                      controller: _email,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration:
-                          const InputDecoration(hintText: "Enter Email"),
-                    ),
-                    TextField(
-                      controller: _password,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      decoration:
-                          const InputDecoration(hintText: "Enter Password"),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        context.read<AuthBloc>().add(AuthEventLogIn(
-                              email,
-                              password,
-                            ));
-                      },
-                      child: const Text("Login"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.read<AuthBloc>().add(const AuthEventShouldRegister());
-                      },
-                      child: const Text('Not registered yet? Register Here.'),
-                    ),
-                  ],
-                );
-              default:
-                return const Text("Loading ...");
-            }
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: FutureBuilder(
+            future: AuthService.firebase().initialize(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return Column(
+                    children: [
+                      const Text('Please Log in to use the note app'),
+                      TextField(
+                        controller: _email,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration:
+                            const InputDecoration(hintText: "Enter Email"),
+                      ),
+                      TextField(
+                        controller: _password,
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration:
+                            const InputDecoration(hintText: "Enter Password"),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          final email = _email.text;
+                          final password = _password.text;
+                          context.read<AuthBloc>().add(AuthEventLogIn(
+                                email,
+                                password,
+                              ));
+                        },
+                        child: const Text("Login"),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          context.read<AuthBloc>().add(const AuthEventForgotPassword());
+                        },
+                        child: const Text("Forgot Password"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<AuthBloc>().add(const AuthEventShouldRegister());
+                        },
+                        child: const Text('Not registered yet? Register Here.'),
+                      ),
+                    ],
+                  );
+                default:
+                  return const Text("Loading ...");
+              }
+            },
+          ),
         ),
       ),
     );

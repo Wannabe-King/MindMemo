@@ -20,5 +20,5 @@ APK: [Touch Me!](https://drive.google.com/file/d/1XvQi0bHNuhJqpXPt8zU0cQc9zSHnPK
 
 ## Demonstration:
 
-https://github.com/Wannabe-King/myNotes/assets/97578019/ab12c26b-f858-4d3f-aae8-e99e5300016c
+https://github.com/Wannabe-King/myNotes/assets/97578019/10c37c32-4237-4021-8262-5393435df67c
 

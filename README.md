@@ -1,4 +1,4 @@
-# learning
+# MindMemo
 
 A new Flutter project.
 

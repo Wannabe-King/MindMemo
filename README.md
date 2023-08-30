@@ -1,18 +1,24 @@
 # MindMemo
 MemoMind offers an effortless way to transform your ideas into tangible notes. 
 
+## Credit
 First I want to thank [Vandad Nahavandipoor](https://www.youtube.com/watch?v=VPvVD8t02U8), from whom I got to learn a lot about Flutter development and many concepts of development in general. He has made an amazing video explaining all the aspects from setting up the Flutter environment to deploying your app on the Play Store and App Store 
 
 
 ## Getting Started
-
 This project is a starting point for a Flutter application.
+
+To run this project you first need to set up **VS Code, Andriod Studio, Android SDK,** and **Flutter** on your computer/laptop.
 
 A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Flutter](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Android Studio](https://developer.android.com/studio)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+APK: [Touch Me!](https://drive.google.com/file/d/1XvQi0bHNuhJqpXPt8zU0cQc9zSHnPKJH/view?usp=drive_link)
+
+##Demonstration:
+
+https://github.com/Wannabe-King/myNotes/assets/97578019/ab12c26b-f858-4d3f-aae8-e99e5300016c
+

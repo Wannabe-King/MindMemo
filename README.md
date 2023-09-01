@@ -1,9 +1,8 @@
-# MindMemo
-MemoMind offers an effortless way to transform your ideas into tangible notes. 
-
 ## Credit
 First I want to thank [Vandad Nahavandipoor](https://www.youtube.com/watch?v=VPvVD8t02U8), from whom I got to learn a lot about Flutter development and many concepts of development in general. He has made an amazing video explaining all the aspects from setting up the Flutter environment to deploying your app on the Play Store and App Store 
 
+# MindMemo
+MemoMind offers an effortless way to transform your ideas into tangible notes. 
 
 ## Getting Started
 This project is a starting point for a Flutter application.

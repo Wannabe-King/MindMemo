@@ -15,7 +15,9 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 - [Android Studio](https://developer.android.com/studio)
 
-So make sure to run the APK and review the code, and give me some feedback 😊.
+After Setup, Download this project and use the flutter run command. (Make sure you have a mobile device connected with USB Debugging turned On)
+
+So make sure to run the APK(to directly run on mobile devices) and review the code, and give me some feedback 😊.
 
 **APK:** [Touch Me!](https://drive.google.com/file/d/1XvQi0bHNuhJqpXPt8zU0cQc9zSHnPKJH/view?usp=drive_link)
 

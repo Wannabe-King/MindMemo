@@ -16,7 +16,7 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 - [Android Studio](https://developer.android.com/studio)
 
-APK: [Touch Me!](https://drive.google.com/file/d/1XvQi0bHNuhJqpXPt8zU0cQc9zSHnPKJH/view?usp=drive_link)
+**APK:** [Touch Me!](https://drive.google.com/file/d/1XvQi0bHNuhJqpXPt8zU0cQc9zSHnPKJH/view?usp=drive_link)
 
 ## Demonstration:
 

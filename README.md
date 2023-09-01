@@ -5,7 +5,6 @@ First I want to thank [Vandad Nahavandipoor](https://www.youtube.com/watch?v=VPv
 MemoMind offers an effortless way to transform your ideas into tangible notes. 
 
 ## Getting Started
-This project is a starting point for a Flutter application.
 
 To run this project you first need to set up **VS Code, Andriod Studio, Android SDK,** and **Flutter** on your computer/laptop.
 
